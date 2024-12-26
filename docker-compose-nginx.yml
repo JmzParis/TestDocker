@@ -1,0 +1,20 @@
+services:
+  nginx-frontend:
+    container_name: ng-nginx
+    build:
+      dockerfile: ./Dockerfile.nginx
+    # volumes:
+    #   - ./src:/app/src
+    ports:
+      - 80:80
+    expose:
+      - 80
+#     networks:
+#       - jmz-network
+    
+#     # environment:
+#     #   - STYLE=scss
+
+# networks:
+#   jmz-network:
+#     driver: bridge

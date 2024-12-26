@@ -1,0 +1,19 @@
+services:
+  ng-serve-frontend:
+    container_name: ng-serve
+    build:
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 4200:4200
+    expose:
+      - 4200
+#     networks:
+#       - jmz-network
+#     # environment:
+#     #   - STYLE=scss
+
+# networks:
+#   jmz-network:
+#     driver: bridge

@@ -1,0 +1,23 @@
+FROM node:22.12.0-alpine AS builder
+RUN apk add --no-cache git
+
+ARG WORK_DIR=/app
+ENV PATH=${WORK_DIR}/node_modules/.bin:$PATH
+RUN mkdir ${WORK_DIR}
+WORKDIR ${WORK_DIR}
+
+## Copy package.json and -lock.json
+COPY package*.json ${WORK_DIR}
+
+RUN npm install
+
+## Copy all other files after npm install
+## this way we can cache the npm install step
+COPY . ${WORK_DIR}
+
+EXPOSE 4200
+
+CMD ["ng","serve","--host", "0.0.0.0", "--poll", "2000"]
+# CMD ng serve --host 0.0.0.0
+## to run it:
+## docker run --rm -p 4200:4200 $(docker build -q -f Dockerfile.dev .)
